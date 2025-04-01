@@ -77,14 +77,18 @@
                 echo "Сумма полученных сделок: " . $summ_receive . "</br>";
                 echo "Кол-во продаж: " . $deal_success . "</br>";
                 echo "Сумма продаж: " . $summ_success . "</br>";
-                echo "Конверсия: " . ($deal_success/$deal_receive)*100 . "</br>";
+                if($deal_receive != 0){
+                    echo "Конверсия: " . ($deal_success/$deal_receive)*100 . "</br>";
+                }
                 echo "---------------------</br></br>";
 
             }
 
             echo "Общая сумма продаж - $total</br>";
             echo "Общая количество продаж - $total_deal_success</br>";
-            echo "Общая конверсия - " . ($total_deal_success/$total_deal_receive)*100 . "</br>";
+            if($total_deal_receive != 0){
+                echo "Общая конверсия - " . ($total_deal_success/$total_deal_receive)*100 . "</br>";
+            }
             ?>
             
             <table class="table">
