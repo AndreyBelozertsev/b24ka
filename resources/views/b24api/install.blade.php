@@ -10,14 +10,9 @@
     @dump(request())
 </pre>
 <script src="//api.bitrix24.com/api/v1/"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        BX24.init(function () {
-            console.log('bx24.js initialized', BX24.isAdmin());
-        });
+    BX24.init(function(){
+        BX24.installFinish();
     });
 </script>
 </body>
