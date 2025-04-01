@@ -8,6 +8,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/b24/install', [BitrixController::class, 'install']);
+Route::post('/b24/install', [BitrixController::class, 'install']);
 
-Route::get('/b24/index', [BitrixController::class, 'index']);
+Route::post('/b24/index', [BitrixController::class, 'index']);
