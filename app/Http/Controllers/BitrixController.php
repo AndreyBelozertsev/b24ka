@@ -17,7 +17,7 @@ class BitrixController extends Controller
         $appProfile = ApplicationProfile::initFromArray([
             'BITRIX24_PHP_SDK_APPLICATION_CLIENT_ID' => env('BITRIX24_PHP_SDK_APPLICATION_CLIENT_ID'),
             'BITRIX24_PHP_SDK_APPLICATION_CLIENT_SECRET' => env('BITRIX24_PHP_SDK_APPLICATION_CLIENT_SECRET'),
-            'BITRIX24_PHP_SDK_APPLICATION_SCOPE' => 'crm'
+            'BITRIX24_PHP_SDK_APPLICATION_SCOPE' => env('BITRIX24_PHP_SDK_APPLICATION_SCOPE')
         ]);
 
         $b24Service = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
@@ -26,6 +26,6 @@ class BitrixController extends Controller
     }
 
     public function install(Request $request){
-        return view('B24api/install', []);
+        return view('b24api/install', []);
     }
 }
