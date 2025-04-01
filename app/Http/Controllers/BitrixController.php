@@ -16,8 +16,11 @@ class BitrixController extends Controller
         ]);
 
         $b24Service = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
-
-        return view('b24api/index', ['B24' => $b24Service]);
+        $monthStart = (new DateTime())->modify('first day of this month')->format('Y-m-d');
+        return view('b24api/index', [
+            'B24' => $b24Service,
+            'monthStart' => $monthStart,
+        ]);
     }
 
     public function install(Request $request){
