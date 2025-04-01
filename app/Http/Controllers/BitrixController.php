@@ -9,11 +9,6 @@ class BitrixController extends Controller
 {
     public function index(Request $request){
 
-
-        echo "<pre>";
-        dump($request);
-        echo "</pre>";
-
         $appProfile = ApplicationProfile::initFromArray([
             'BITRIX24_PHP_SDK_APPLICATION_CLIENT_ID' => env('BITRIX24_PHP_SDK_APPLICATION_CLIENT_ID'),
             'BITRIX24_PHP_SDK_APPLICATION_CLIENT_SECRET' => env('BITRIX24_PHP_SDK_APPLICATION_CLIENT_SECRET'),
@@ -22,7 +17,7 @@ class BitrixController extends Controller
 
         $b24Service = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
 
-        return view('b24api/index', ['b24' => $b24Service]);
+        return view('b24api/index', ['B24' => $b24Service]);
     }
 
     public function install(Request $request){
