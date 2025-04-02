@@ -54,7 +54,7 @@
                     '!@STAGE_ID' => ['5','6','7','16','17'],
                     'CATEGORY_ID' => 0,
                     '>=DATE_CREATE' => $monthStart,
-                    '>=DATE_CREATE' => $$monthEnd,
+                    '<=DATE_CREATE' => $monthEnd,
                 ];
                 $select = ['ID','TITLE', 'OPPORTUNITY','STAGE_ID'];
                 $deal_receive = 0; 
