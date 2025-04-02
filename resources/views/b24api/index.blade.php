@@ -14,7 +14,6 @@
 
 	<title>B24PhpSDK local-app demo</title>
 </head>
-
 <body class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -46,14 +45,16 @@
                     'ASSIGNED_BY_ID' => $user['ID'],
                     'STAGE_ID' => 'WON',
                     'CATEGORY_ID' => 0,
-                    '>=CLOSEDATE' => $monthStart
+                    '>=CLOSEDATE' => $monthStart,
+                    '<=CLOSEDATE' => $monthEnd,
                 ];
 
                 $args_receive = [
                     'ASSIGNED_BY_ID' => $user['ID'],
                     '!@STAGE_ID' => ['5','6','7','16','17'],
                     'CATEGORY_ID' => 0,
-                    '>=DATE_CREATE' => $monthStart
+                    '>=DATE_CREATE' => $monthStart,
+                    '>=DATE_CREATE' => $$monthEnd,
                 ];
                 $select = ['ID','TITLE', 'OPPORTUNITY','STAGE_ID'];
                 $deal_receive = 0; 

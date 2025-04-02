@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('position_id')->constrained()->onDelete('cascade');
+            $table->integer('bitrix_id')->unique();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

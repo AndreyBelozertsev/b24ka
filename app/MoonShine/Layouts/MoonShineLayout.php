@@ -30,6 +30,10 @@ use MoonShine\UI\Components\{Breadcrumbs,
     Layout\TopBar,
     Layout\Wrapper,
     When};
+use App\MoonShine\Resources\StaffResource;
+use MoonShine\MenuManager\MenuItem;
+use App\MoonShine\Resources\PositionResource;
+use App\MoonShine\Resources\PlanResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -44,6 +48,9 @@ final class MoonShineLayout extends AppLayout
     {
         return [
             ...parent::menu(),
+            MenuItem::make('Сотрудники', StaffResource::class),
+            MenuItem::make('Должности', PositionResource::class),
+            MenuItem::make('Плановые показатели', PlanResource::class),
         ];
     }
 
