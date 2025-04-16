@@ -10,6 +10,7 @@ use App\Models\Plan;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Date;
 use MoonShine\UI\Fields\Json;
+use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Select;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,8 @@ class PlanResource extends ModelResource
     protected string $model = Plan::class;
 
     protected string $title = 'Плановые показатели';
+
+    protected string $column = 'staff.name';
     
     /**
      * @return list<FieldContract>
@@ -34,16 +37,34 @@ class PlanResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
+            BelongsTo::make('Сотрудник', 'staff', 'name')
+                ->searchable(),
 
+            Date::make('Месяц', 'start_at')
+                ->format('Y-m'),
+
+            Number::make('План', 'summ'),
+
+            Number::make('Конверсия', 'conversion'),
+
+            Number::make('Ставка', 'salary')
+        ];
+    }
+
+    /**
+     * @return list<ComponentContract|FieldContract>
+     */
+    protected function formFields(): iterable
+    {
+        return [
             BelongsTo::make('Сотрудник', 'staff', 'name')
                 ->required()
                 ->searchable(),
 
-            Date::make('Месяц и год', 'start_at')
+            Date::make('Первый день месяца на который установлен план', 'start_at')
                 ->format('Y-m'),
 
-            Number::make('Сумма', 'summ')
+            Number::make('План', 'summ')
                 ->required()
                 ->min(0)
                 ->step(1),
@@ -54,23 +75,15 @@ class PlanResource extends ModelResource
                 ->max(100)
                 ->step(1),
 
-            Number::make('Зарплата', 'salary')
+            Number::make('Ставка', 'salary')
                 ->required()
                 ->min(0)
                 ->step(1),
 
             Json::make('Дополнительные параметры', 'options')
-                ->keyValue('Параметр', 'Значение')
+                ->keyValue('% выполнения плана', '% премии')
                 ->removable(),
         ];
-    }
-
-    /**
-     * @return list<ComponentContract|FieldContract>
-     */
-    protected function formFields(): iterable
-    {
-        return $this->indexFields();
     }
 
     /**
@@ -78,7 +91,34 @@ class PlanResource extends ModelResource
      */
     protected function detailFields(): iterable
     {
-        return $this->indexFields();
+        return [
+            BelongsTo::make('Сотрудник', 'staff', 'name')
+                ->required()
+                ->searchable(),
+
+            Date::make('Первый день месяца на который установлен план', 'start_at')
+                ->format('Y-m'),
+
+            Number::make('План', 'summ')
+                ->required()
+                ->min(0)
+                ->step(1),
+
+            Number::make('Конверсия', 'conversion')
+                ->required()
+                ->min(0)
+                ->max(100)
+                ->step(1),
+
+            Number::make('Ставка', 'salary')
+                ->required()
+                ->min(0)
+                ->step(1),
+
+            Json::make('Дополнительные параметры', 'options')
+                ->keyValue('% выполнения плана', '% премии')
+                ->removable(),
+        ];
     }
 
     /**
@@ -92,9 +132,9 @@ class PlanResource extends ModelResource
         return [
             'staff_id' => ['required', 'integer', 'exists:staff,id'],
             'start_at' => ['required', 'date'],
-            'summ' => ['required', 'integer', 'min:0'],
+            'summ' => ['required'],
             'conversion' => ['required', 'integer', 'min:0', 'max:100'],
-            'salary' => ['required', 'integer', 'min:0'],
+            'salary' => ['required'],
             'options' => ['nullable', 'array'],
         ];
     }
@@ -115,13 +155,3 @@ class PlanResource extends ModelResource
         ];
     }
 }
-
-
-// $table->id();
-// $table->foreignId('staff_id')->constrained()->onDelete('cascade');
-// $table->date('start_at');
-// $table->integer('summ');
-// $table->integer('conversion');
-// $table->integer('salary');
-// $table->json('options')->nullable();
-// $table->timestamps();

@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Staff;
-
-use MoonShine\Laravel\Resources\ModelResource;
-use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
+
+use MoonShine\UI\Fields\Text;
+use MoonShine\UI\Components\Tabs;
+use MoonShine\UI\Fields\Switcher;
+use MoonShine\UI\Components\Tabs\Tab;
+use Illuminate\Database\Eloquent\Model;
+use MoonShine\UI\Components\Layout\Box;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\Laravel\Fields\Relationships\HasMany;
+use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 
 /**
  * @extends ModelResource<Staff>
@@ -22,13 +28,22 @@ class StaffResource extends ModelResource
 
     protected string $title = 'Сотрудники';
     
+    protected string $column = 'name';
+    
     /**
      * @return list<FieldContract>
      */
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
+            Text::make('ФИО', 'name'),
+            Text::make('Bitrix ID', 'bitrix_id'),
+            BelongsTo::make('Должность',
+                'position',
+                'title',
+                PositionResource::class,
+            ),
+            Switcher::make('Статус', 'status'),
         ];
     }
 
@@ -38,9 +53,21 @@ class StaffResource extends ModelResource
     protected function formFields(): iterable
     {
         return [
-            Box::make([
-                ID::make(),
-            ])
+            Tabs::make([
+                Tab::make('Общая информация', [
+                    Text::make('ФИО', 'name'),
+                    Text::make('Bitrix ID', 'bitrix_id'),
+                    Switcher::make('Статус', 'status'),
+                ]),
+                Tab::make('Планы', [
+                    HasMany::make(
+                        'Планы',
+                        'plans',
+                        resource: PlanResource::class
+                    )
+                    ->searchable(false)
+                ]),
+            ]),
         ];
     }
 
@@ -50,7 +77,20 @@ class StaffResource extends ModelResource
     protected function detailFields(): iterable
     {
         return [
-            ID::make(),
+            Text::make('ФИО', 'name'),
+            Text::make('Bitrix ID', 'bitrix_id'),
+            BelongsTo::make('Должность',
+                'position',
+                'title',
+                PositionResource::class,
+            ),
+            Switcher::make('Статус', 'status'),
+            HasMany::make(
+                    'Планы',
+                    'plans',
+                    resource: PlanResource::class
+                )
+                ->searchable(false)
         ];
     }
 

@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Position;
-
-use MoonShine\Laravel\Resources\ModelResource;
-use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
+
+use MoonShine\UI\Fields\Text;
+use Illuminate\Database\Eloquent\Model;
+use MoonShine\UI\Components\Layout\Box;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Laravel\Resources\ModelResource;
 
 /**
  * @extends ModelResource<Position>
@@ -21,6 +22,8 @@ class PositionResource extends ModelResource
     protected string $model = Position::class;
 
     protected string $title = 'Должности';
+
+    protected string $column = 'title';
     
     /**
      * @return list<FieldContract>
@@ -28,7 +31,8 @@ class PositionResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
+            Text::make('Должность', 'title'),
+            Text::make('Сортировка', 'sort')
         ];
     }
 
@@ -39,7 +43,11 @@ class PositionResource extends ModelResource
     {
         return [
             Box::make([
-                ID::make(),
+                Text::make('Название', 'title')
+                    ->required(),
+            
+                Text::make('Сортировка', 'sort')
+                    ->required(),
             ])
         ];
     }
@@ -50,7 +58,11 @@ class PositionResource extends ModelResource
     protected function detailFields(): iterable
     {
         return [
-            ID::make(),
+            Text::make('Название', 'title')
+                ->required(),
+            
+            Text::make('Сортировка', 'sort')
+                ->required(),
         ];
     }
 
@@ -62,6 +74,15 @@ class PositionResource extends ModelResource
      */
     protected function rules(mixed $item): array
     {
-        return [];
+        return [
+            'title' => ['required', 'string', 'max:255'],
+            'sort' => ['required', 'string', 'max:50'],
+        ];
     }
 }
+
+
+// $table->id();
+// $table->string('title');
+// $table->string('sort');
+// $table->timestamps();

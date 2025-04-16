@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Casts\PriceCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,13 +21,11 @@ class Plan extends Model
 
     protected $casts = [
         'start_at' => 'date',
-        'options' => 'array'
+        'options' => 'array',
     ];
 
     public function staff(): BelongsTo
     {
         return $this->belongsTo(Staff::class);
-    }
-
-    
+    }   
 }
