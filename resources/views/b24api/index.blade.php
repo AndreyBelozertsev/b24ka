@@ -18,6 +18,10 @@
     <div class="row">
         <div class="col-md-12 col-lg-12">
             @dump($users)
+            @dump($period)
+            @dump($total_summ)
+            @dump($total_deal_receive)
+            @dump($total_deal_success)
         </div>
     </div>
 </div>

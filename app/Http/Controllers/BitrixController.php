@@ -97,14 +97,17 @@ class BitrixController extends Controller
             $users[$user['ID']]['deal_success'] = $deal_success;
             $users[$user['ID']]['summ_success'] = $summ_success;
             if($deal_receive != 0){
-                $users[$user['ID']]['summ_success'] = ($deal_success/$deal_receive)*100;
+                $users[$user['ID']]['conversion'] = ($deal_success/$deal_receive)*100;
             }
             
         }
 
         return view('b24api/index', [
             'period' =>  $monthStart,
-            'users' => $users
+            'users' => $users,
+            'total_summ' => $total,
+            'total_deal_receive' => $total_deal_receive,
+            'total_deal_success' => $total_deal_success
         ]);
     }
 
