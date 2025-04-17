@@ -29,7 +29,7 @@ class StaffResource extends ModelResource
     protected string $title = 'Сотрудники';
     
     protected string $column = 'name';
-    
+
     /**
      * @return list<FieldContract>
      */
@@ -58,6 +58,11 @@ class StaffResource extends ModelResource
                     Text::make('ФИО', 'name'),
                     Text::make('Bitrix ID', 'bitrix_id'),
                     Switcher::make('Статус', 'status'),
+                    BelongsTo::make('Должность',
+                        'position',
+                        'title',
+                        PositionResource::class,
+                    ),
                 ]),
                 Tab::make('Планы', [
                     HasMany::make(

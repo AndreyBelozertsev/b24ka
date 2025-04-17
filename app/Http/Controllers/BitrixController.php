@@ -100,7 +100,7 @@ class BitrixController extends Controller
             if($deal_receive != 0){
                 $users[$user['ID']]['conversion'] = ($deal_success/$deal_receive)*100;
             }
-            
+                        
         }
 
         return view('b24api/index', [

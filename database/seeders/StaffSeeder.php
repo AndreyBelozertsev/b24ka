@@ -28,6 +28,11 @@ class StaffSeeder extends Seeder
                 'name' => 'Каюмарс Сафаров',
                 'position_id' => 1,
                 'bitrix_id' => 4553
+            ],
+            [
+                'name' => 'Анвар Каримов',
+                'position_id' => 1,
+                'bitrix_id' => 49257
             ]
         ];
 
