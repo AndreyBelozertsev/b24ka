@@ -75,7 +75,7 @@ class BitrixController extends Controller
                 '>=DATE_CREATE' => $monthStart,
                 '<=DATE_CREATE' => $monthEnd,
             ];
-            $select = ['ID','TITLE', 'OPPORTUNITY','STAGE_ID'];
+            $select = ['ID','TITLE', 'OPPORTUNITY','STAGE_ID', 'CLOSEDATE'];
             $deal_receive = 0; 
             $deal_success = 0;   
             $summ_receive = 0;
@@ -85,8 +85,10 @@ class BitrixController extends Controller
                 $summ_receive += $deal->OPPORTUNITY;
                 $deal_receive++;
             }
+            $i=0;
             foreach($B24->getCRMScope()->deal()->batch->list([],$args_success,$select,10000) as $deal){
                 if($user['ID'] == 4553){
+                    dump($i++);
                     dump($deal);
                 }
                 $summ_success += $deal->OPPORTUNITY;
