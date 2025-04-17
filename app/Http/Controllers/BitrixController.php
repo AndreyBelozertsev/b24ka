@@ -149,7 +149,7 @@ class BitrixController extends Controller
                 if ($percentage > 100) {
                     $overAchievement = $actualSales - $plan;
                     $salary += $overAchievement * $rate;
-                    $processedRanges[] = "Свыше 100%: ".($rate*100)."% от ".number_format($overAchievement, 0, '', ' ') . " - ". number_format($overAchievement * $rate, 0, '', ' ');
+                    $processedRanges[] = "Свыше 100%: ".($rate*100)."% от ".number_format($overAchievement, 0, '', ' ') . " - " . number_format($overAchievement * $rate, 0, '', ' ');
                 }
                 continue;
             }
@@ -167,7 +167,7 @@ class BitrixController extends Controller
                 $applicableAmount = min($actualSales, $upperBound) - max($previousUpperBound, $lowerBound);
                 if ($applicableAmount > 0) {
                     $salary += $applicableAmount * $rate;
-                    $processedRanges[] = "$min-$max%: ".($rate*100)."% от ".number_format($applicableAmount, 0, '', ' ');
+                    $processedRanges[] = "$min-$max%: ".($rate*100)."% от ".number_format($applicableAmount, 0, '', ' ')  . " - " . number_format($overAchievement * $rate, 0, '', ' ');
                 }
                 $previousUpperBound = $upperBound;
             }
