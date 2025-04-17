@@ -86,6 +86,9 @@ class BitrixController extends Controller
                 $deal_receive++;
             }
             foreach($B24->getCRMScope()->deal()->batch->list([],$args_success,$select,10000) as $deal){
+                if($user['ID'] == 4553){
+                    dump($deal);
+                }
                 $summ_success += $deal->OPPORTUNITY;
                 $deal_success++;
             }
