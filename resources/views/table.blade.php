@@ -33,25 +33,25 @@
             <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Наименование</th>
-                        <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Результат</th>
+                        <th class="py-2 px-4 border-b text-left text-gray-700 font-medium">Наименование</th>
+                        <th class="py-2 px-4 border-b text-left text-gray-700 font-medium">Результат</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Строка 1 -->
                     <tr class="hover:bg-gray-50">
-                        <td class="py-3 px-4 border-b text-gray-600">План по продажам</td>
-                        <td class="py-3 px-4 border-b text-gray-800 font-medium">3 500 000</td>
+                        <td class="py-2 px-4 border-b text-gray-600">План по продажам</td>
+                        <td class="py-2 px-4 border-b text-gray-800 font-medium">3 500 000</td>
                     </tr>
                     <!-- Строка 2 -->
                     <tr class="hover:bg-gray-50">
-                        <td class="py-3 px-4 border-b text-gray-600">Факт продаж</td>
-                        <td class="py-3 px-4 border-b text-gray-800 font-medium">2 500 000</td>
+                        <td class="py-2 px-4 border-b text-gray-600">Факт продаж</td>
+                        <td class="py-2 px-4 border-b text-gray-800 font-medium">2 500 000</td>
                     </tr>
                     <!-- Строка 3 -->
                     <tr class="hover:bg-gray-50">
-                        <td class="py-3 px-4 border-b text-gray-600">План по конверсии</td>
-                        <td class="py-3 px-4 border-b text-gray-800 font-medium">40%</td>
+                        <td class="py-2 px-4 border-b text-gray-600">План по конверсии</td>
+                        <td class="py-2 px-4 border-b text-gray-800 font-medium">40%</td>
                     </tr>
                 </tbody>
             </table>
