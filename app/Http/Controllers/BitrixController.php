@@ -96,6 +96,7 @@ class BitrixController extends Controller
             $users[$user['ID']]['summ_receive'] = $summ_receive;
             $users[$user['ID']]['deal_success'] = $deal_success;
             $users[$user['ID']]['summ_success'] = $summ_success;
+            $users[$user['ID']]['plan_percent'] = ($summ_success/$plan->summ)*100;
             if($deal_receive != 0){
                 $users[$user['ID']]['conversion'] = ($deal_success/$deal_receive)*100;
             }
