@@ -107,9 +107,17 @@ class BitrixController extends Controller
         setlocale(LC_TIME, 'ru_RU.UTF-8'); // Устанавливаем русскую локаль
         $date = strftime('%B %Y', $date->getTimestamp());
 
+        $date = new DateTime($monthStart);
+        $months = [
+            1 => 'январь', 2 => 'февраль', 3 => 'март', 
+            4 => 'апрель', 5 => 'май', 6 => 'июнь',
+            7 => 'июль', 8 => 'август', 9 => 'сентябрь',
+            10 => 'октябрь', 11 => 'ноябрь', 12 => 'декабрь'
+        ];
+
 
         return view('b24api/index', [
-            'period' =>  $date,
+            'period' =>  $months[(int)$date->format('n')] . ' ' . $date->format('Y'),
             'users' => $users,
             'total_summ' => $total,
             'total_deal_receive' => $total_deal_receive,
