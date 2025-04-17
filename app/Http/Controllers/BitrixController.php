@@ -118,7 +118,7 @@ class BitrixController extends Controller
     }
 
     protected function calculateManagerSalary($plan, $actualSales, $options) {
-        dump($actualSales);
+
         $percentage = ($actualSales / $plan) * 100;
         $salary = 0;
         $processedRanges = [];
@@ -142,7 +142,6 @@ class BitrixController extends Controller
             $bMin = explode('-', $b)[0];
             return $aMin <=> $bMin;
         });
-        
         $previousUpperBound = 0;
         
         foreach ($sortedOptions as $range => $rate) {
@@ -150,7 +149,7 @@ class BitrixController extends Controller
                 if ($percentage > 100) {
                     $overAchievement = $actualSales - $plan;
                     $salary += $overAchievement * $rate;
-                    $processedRanges[] = "Свыше 100%: ".($rate*100)."% от ".number_format($overAchievement, 0, '', ' ');
+                    $processedRanges[] = "Свыше 100%: ".($rate*100)."% от ".number_format($overAchievement, 0, '', ' ') . " - ". number_format($overAchievement * $rate, 0, '', ' ');
                 }
                 continue;
             }
@@ -158,10 +157,12 @@ class BitrixController extends Controller
             list($min, $max) = explode('-', $range);
             $min = (float)$min;
             $max = (float)$max;
-            
+
+
             $lowerBound = $plan * ($min / 100);
             $upperBound = $plan * ($max / 100);
-            
+
+
             if ($percentage >= $min) {
                 $applicableAmount = min($actualSales, $upperBound) - max($previousUpperBound, $lowerBound);
                 if ($applicableAmount > 0) {

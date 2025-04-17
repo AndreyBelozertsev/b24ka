@@ -15,16 +15,6 @@ class StaffSeeder extends Seeder
     {
         $items = [
             [
-                'name' => 'Сиёвуш',
-                'position_id' => 1,
-                'bitrix_id' => 56035
-            ],
-            [
-                'name' => 'Марат Мукожев',
-                'position_id' => 1,
-                'bitrix_id' => 49723
-            ],
-            [
                 'name' => 'Каюмарс Сафаров',
                 'position_id' => 1,
                 'bitrix_id' => 4553
@@ -33,6 +23,16 @@ class StaffSeeder extends Seeder
                 'name' => 'Анвар Каримов',
                 'position_id' => 1,
                 'bitrix_id' => 49257
+            ],
+            [
+                'name' => 'Марат Мукожев',
+                'position_id' => 1,
+                'bitrix_id' => 49723
+            ],
+            [
+                'name' => 'Сиёвуш',
+                'position_id' => 1,
+                'bitrix_id' => 56035
             ]
         ];
 

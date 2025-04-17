@@ -20,16 +20,16 @@ class PlanSeeder extends Seeder
                 'summ' => 3500000,
                 'conversion' => 40,
                 'salary' => 69000,
-                'options' => ['1-80' => '1', '81-100' => 2, '100' => 3]
+                'options' => ['0-80' => '1', '80-100' => 2, '100' => 3]
 
             ],
             [
                 'staff_id' => 2,
                 'start_at' => '2025-04-01 00:00:00',
-                'summ' => 2500000,
+                'summ' => 2000000,
                 'conversion' => 40,
                 'salary' => 69000,
-                'options' => ['1-80' => '1', '81-100' => 2, '100' => 3]
+                'options' => ['0-500' => '2']
             ],            
             [
                 'staff_id' => 3,
@@ -37,7 +37,16 @@ class PlanSeeder extends Seeder
                 'summ' => 2500000,
                 'conversion' => 40,
                 'salary' => 69000,
-                'options' => ['1-80' => '1', '81-100' => 2, '100' => 3]
+                'options' => ['0-80' => '1', '80-100' => 2, '100' => 3]
+
+            ],            
+            [
+                'staff_id' => 4,
+                'start_at' => '2025-04-01 00:00:00',
+                'summ' => 2000000,
+                'conversion' => 40,
+                'salary' => 69000,
+                'options' => ['0-80' => '1', '80-100' => 2, '100' => 3]
 
             ]
         ];
