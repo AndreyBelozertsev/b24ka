@@ -12,7 +12,7 @@ use Bitrix24\SDK\Core\Credentials\ApplicationProfile;
 class HomeController extends Controller
 {
     public function index(){
-        return view('welcome');
+        return view('table');
     }
 }
 

@@ -103,9 +103,13 @@ class BitrixController extends Controller
             $users[$user['ID']]['sallary_count'] = $this->calculateManagerSalary($plan->summ, $summ_success, $plan->options);
 
         }
+        $date = new DateTime($monthStart);
+        setlocale(LC_TIME, 'ru_RU.UTF-8'); // Устанавливаем русскую локаль
+        $date = strftime('%B %Y', $date->getTimestamp());
+
 
         return view('b24api/index', [
-            'period' =>  $monthStart,
+            'period' =>  $date,
             'users' => $users,
             'total_summ' => $total,
             'total_deal_receive' => $total_deal_receive,
