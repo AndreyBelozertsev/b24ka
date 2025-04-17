@@ -75,7 +75,7 @@
                             </tr>
                             <tr class="hover:bg-gray-50">
                                 <td class="py-2 px-4 border-b text-gray-600">Сумма премиальной части</td>
-                                <td class="py-2 px-4 border-b text-gray-800 font-medium">{{ $user['sallary_count']['salary'] }}</td>
+                                <td class="py-2 px-4 border-b text-gray-800 font-medium">{{ number_format($user['sallary_count']['salary'], 0, '', ' ') }}</td>
                             </tr>
                         </tbody>
                     </table>
