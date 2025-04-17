@@ -12,75 +12,7 @@ use Bitrix24\SDK\Core\Credentials\ApplicationProfile;
 class HomeController extends Controller
 {
     public function index(){
-        $options = [
-            100 => "3",
-            "0-80" => "1",
-            "80-100" => "2"
-        ];
-        dump($this->calculateManagerSalary(3500000, 4931485.0, $options));
         return view('welcome');
-    }
-
-    protected function calculateManagerSalary($plan, $actualSales, $options) {
-
-        $percentage = ($actualSales / $plan) * 100;
-        $salary = 0;
-        $processedRanges = [];
-        
-        // Сортируем options для обработки в правильном порядке
-        $sortedOptions = [];
-        foreach ($options as $key => $value) {
-            if ($key === 100) {
-                $sortedOptions['100+'] = (float)$value / 100;
-            } elseif (strpos($key, '-') !== false) {
-                $sortedOptions[$key] = (float)$value / 100;
-            }
-        }
-        
-        // Сортируем диапазоны по возрастанию
-        uksort($sortedOptions, function($a, $b) {
-            if ($a === '100+') return 1;
-            if ($b === '100+') return -1;
-            
-            $aMin = explode('-', $a)[0];
-            $bMin = explode('-', $b)[0];
-            return $aMin <=> $bMin;
-        });
-        $previousUpperBound = 0;
-        
-        foreach ($sortedOptions as $range => $rate) {
-            if ($range === '100+') {
-                if ($percentage > 100) {
-                    $overAchievement = $actualSales - $plan;
-                    $salary += $overAchievement * $rate;
-                    $processedRanges[] = "Свыше 100%: ".($rate*100)."% от ".number_format($overAchievement, 0, '', ' ') . " - " . number_format($overAchievement * $rate, 0, '', ' ');
-                }
-                continue;
-            }
-            
-            list($min, $max) = explode('-', $range);
-            $min = (float)$min;
-            $max = (float)$max;
-
-
-            $lowerBound = $plan * ($min / 100);
-            $upperBound = $plan * ($max / 100);
-
-
-            if ($percentage >= $min) {
-                $applicableAmount = min($actualSales, $upperBound) - max($previousUpperBound, $lowerBound);
-                if ($applicableAmount > 0) {
-                    $salary += $applicableAmount * $rate;
-                    $processedRanges[] = "$min-$max%: ".($rate*100)."% от ".number_format($applicableAmount, 0, '', ' ')  . " - " . number_format($overAchievement * $rate, 0, '', ' ');
-                }
-                $previousUpperBound = $upperBound;
-            }
-        }
-        
-        return [
-            'salary' => $salary,
-            'calculation_details' => $processedRanges
-        ];
     }
 }
 
