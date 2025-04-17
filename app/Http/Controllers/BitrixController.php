@@ -99,6 +99,8 @@ class BitrixController extends Controller
             $users[$user['ID']]['plan_percent'] = ($summ_success/$plan->summ)*100;
             if($deal_receive != 0){
                 $users[$user['ID']]['conversion'] = ($deal_success/$deal_receive)*100;
+            }else{
+                $users[$user['ID']]['conversion'] = 0;
             }
             $users[$user['ID']]['sallary_count'] = $this->calculateManagerSalary($plan->summ, $summ_success, $plan->options);
 

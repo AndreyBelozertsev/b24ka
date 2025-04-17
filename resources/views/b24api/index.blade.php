@@ -8,8 +8,84 @@
 	<!-- Latest compiled and minified CSS -->
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 
-	<title>Расчет заработной платы</title>
+	<title>Расчет вознаграждения за продажи</title>
 </head>
+
+
+<body class="bg-gray-50 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Расчет вознаграждения за продажи</h1>
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Период - {{ $period}}</h2>
+        @foreach ($users as $user)
+            <div class="mb-6">
+                <p class="text-lg text-gray-600">ФИО сотрудника: <span class="font-medium text-gray-800">{{ $user['name'] }}</span></p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Наименование</th>
+                            <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Результат</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">План по продажам</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ number_format($user['plan'], 0, '', ' ') }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">
+                                Ставка
+                                <p class="text-sm text-gray-400">Выплачивается при условии отработки всех дней</p>
+                            </td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ number_format($user['salary'], 0, '', ' ') }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Получено лидов за период (шт)</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ $user['deal_receive'] }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Получено лидов за период (руб)</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ number_format($user['summ_receive'], 0, '', ' ') }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Продаж за период (шт)</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ $user['deal_success'] }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Продаж за период (руб)</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ number_format($user['summ_success'], 0, '', ' ') }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">% выполнения плана</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ $user['plan_percent'] }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">% конверсии</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ $user['conversion'] }}</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Расчет премиальной части</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">
+                                @foreach ($user['sallary_count']['calculation_details'] as $detail)
+                                    <p>{{ $detail }}</p>
+                                @endforeach
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 border-b text-gray-600">Сумма премиальной части</td>
+                            <td class="py-3 px-4 border-b text-gray-800 font-medium">{{ $user['sallary_count']['salary'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        @endforeach
+    </div>
+</body>
+
+
+
+
 <body class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-lg-12">

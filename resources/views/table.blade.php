@@ -15,43 +15,47 @@
             @vite(['resources/css/app.css', 'resources/js/app.js'])
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <main>
-            <section class="container">
-                <div class="flex flex-col">
-                    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                        <div class="overflow-hidden">
-                            <div>
-                                <p>Сафаров Каюмарс</p>
-                            </div>
-                            <table
-                            class="min-w-full text-left text-sm font-light text-surface dark:text-white">
-                            <thead
-                                class="border-b border-neutral-200 bg-white font-medium dark:border-white/10 dark:bg-body-dark">
-                                <tr>
-                                    <th scope="col" class="px-6 py-4">Показатель</th>
-                                    <th scope="col" class="px-6 py-4">Результат</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                class="border-b border-neutral-200 bg-black/[0.02] dark:border-white/10">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium">План по продажам</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{ number_format('3500000', 0, '', ' ') }}</td>
-                                </tr>
-                                <tr
-                                class="border-b border-neutral-200 bg-white dark:border-white/10 dark:bg-body-dark">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium">2</td>
-                                    <td class="whitespace-nowrap px-6 py-4">Jacob</td>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </body>
+    <body class="bg-gray-50 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <!-- Заголовок страницы -->
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Расчет заработной платы</h1>
+        
+        <!-- Подзаголовок "Период" -->
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Период</h2>
+        
+        <!-- ФИО сотрудника -->
+        <div class="mb-6">
+            <p class="text-lg text-gray-600">ФИО сотрудника: <span class="font-medium text-gray-800">Иванов Иван Иванович</span></p>
+        </div>
+        
+        <!-- Таблица с расчетами -->
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Наименование</th>
+                        <th class="py-3 px-4 border-b text-left text-gray-700 font-medium">Результат</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Строка 1 -->
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-4 border-b text-gray-600">План по продажам</td>
+                        <td class="py-3 px-4 border-b text-gray-800 font-medium">3 500 000</td>
+                    </tr>
+                    <!-- Строка 2 -->
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-4 border-b text-gray-600">Факт продаж</td>
+                        <td class="py-3 px-4 border-b text-gray-800 font-medium">2 500 000</td>
+                    </tr>
+                    <!-- Строка 3 -->
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-3 px-4 border-b text-gray-600">План по конверсии</td>
+                        <td class="py-3 px-4 border-b text-gray-800 font-medium">40%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
 </html>
