@@ -118,6 +118,7 @@ class BitrixController extends Controller
     }
 
     protected function calculateManagerSalary($plan, $actualSales, $options) {
+        dump($actualSales);
         $percentage = ($actualSales / $plan) * 100;
         $salary = 0;
         $processedRanges = [];
