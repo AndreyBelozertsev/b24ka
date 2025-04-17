@@ -17,7 +17,7 @@
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Расчет вознаграждения за продажи</h1>
         <h2 class="text-xl font-semibold text-gray-700 mb-4">Период - {{ $period}}</h2>
         @foreach ($users as $user)
-            <div class="mb-10">
+            <div class="mb-12">
                 <div class="mb-6">
                     <p class="text-lg text-gray-600">ФИО сотрудника: <span class="font-medium text-gray-800">{{ $user['name'] }}</span></p>
                 </div>
