@@ -1,7 +1,8 @@
 <?php
 
-use Laravel\Telescope\Http\Middleware\Authorize;
 use Laravel\Telescope\Watchers;
+use Laravel\Telescope\Http\Middleware\Authorize;
+use MoonShine\Laravel\Http\Middleware\Authenticate;
 
 return [
 
@@ -94,7 +95,7 @@ return [
 
     'middleware' => [
         'moonshine',
-        Authorize::class,
+        Authenticate::class,
     ],
 
     /*
