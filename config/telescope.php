@@ -110,6 +110,7 @@ return [
     */
 
     'only_paths' => [
+        'b24/*',
         // 'api/*'
     ],
 
