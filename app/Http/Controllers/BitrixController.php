@@ -51,8 +51,8 @@ class BitrixController extends Controller
                 continue;
             }
             $plan = $user_app->plans()
-                ->where('start_at', '>=', (new DateTime())->modify('first day of this month')->format('Y-m-d'))
-                ->where('start_at', '<', (new DateTime('last day of this month'))->format('Y-m-d'))
+                ->where('start_at', '>=',         $monthStart)
+                ->where('start_at', '<',         $monthEnd)
                 ->first();
             if(!$plan){
                 continue;
