@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 class PositionController extends Controller
 {
     public function test(Request $request){
-        Log::channel('requests')->info('Request logged:', [
+        Log::info('Request logged:', [
             'method' => $request->method(),
             'url' => $request->fullUrl(),
             'ip' => $request->ip(),
