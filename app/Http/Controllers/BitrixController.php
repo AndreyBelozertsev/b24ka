@@ -32,7 +32,8 @@ class BitrixController extends Controller
         $users_raw[] = $B24->core->call('user.current')->getResponseData()->getResult();
         if( isset($users_raw[0]['UF_DEPARTMENT'])) {
             $intersection = array_intersect($users_raw[0]['UF_DEPARTMENT'], [11, 13, 355, 349]);
-            if (!empty($intersection)) {
+            $users_access_ids = ['51289'];
+            if (!empty($intersection) || in_array($users_raw[0]['ID'], $users_access_ids)) {
                 $users_raw = $B24->core->call('user.get', [
                     'filter' => ['UF_DEPARTMENT' => 407],
                     'select' => ['ID', 'NAME', 'LAST_NAME','WORK_POSITION']
