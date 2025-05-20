@@ -79,6 +79,10 @@ class PlanResource extends ModelResource
                 ->required()
                 ->min(0)
                 ->step(1),
+            
+            Select::make('Модель системы начисления ЗП', 'kpi_model_id')
+                ->options(config('salary_models.models'))
+                ->default(2),
 
             Json::make('Дополнительные параметры', 'options')
                 ->keyValue('% выполнения плана', '% премии')

@@ -20,10 +20,10 @@ class BitrixController extends Controller
         $B24 = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
 
         //get last and first date
-        //$monthStart = (new DateTime())->modify('first day of this month')->format('Y-m-d');
-        //$monthEnd = (new DateTime('last day of this month'))->format('Y-m-d');
-        $monthStart = (new DateTime())->setDate((int)date('Y'), 4, 1)->format('Y-m-d');
-        $monthEnd = (new DateTime())->setDate((int)date('Y'), 4, 30)->format('Y-m-d');
+        $monthStart = (new DateTime())->modify('first day of this month')->format('Y-m-d');
+        $monthEnd = (new DateTime('last day of this month'))->format('Y-m-d');
+        // $monthStart = (new DateTime())->setDate((int)date('Y'), 4, 1)->format('Y-m-d');
+        // $monthEnd = (new DateTime())->setDate((int)date('Y'), 4, 30)->format('Y-m-d');
 
 
         //get the users
@@ -106,8 +106,13 @@ class BitrixController extends Controller
             }else{
                 $users[$user['ID']]['conversion'] = 0;
             }
-            $users[$user['ID']]['sallary_count'] = $this->calculateManagerSalary($plan->summ, $summ_success, $plan->options);
+            if($plan->kpi_model_id == 1){
+                $users[$user['ID']]['sallary_count'] = $this->calculateManagerSalary1($plan->summ, $summ_success, $plan->options);
+            }
 
+            if($plan->kpi_model_id == 2){
+                $users[$user['ID']]['sallary_count'] = $this->calculateManagerSalary2($plan->summ, $summ_success, $plan->options);
+            }
         }
         $date = new DateTime($monthStart);
         setlocale(LC_TIME, 'ru_RU.UTF-8'); // Устанавливаем русскую локаль
@@ -135,7 +140,7 @@ class BitrixController extends Controller
         return view('b24api/install', []);
     }
 
-    protected function calculateManagerSalary($plan, $actualSales, $options) {
+    protected function calculateManagerSalary1($plan, $actualSales, $options) {
 
         $percentage = ($actualSales / $plan) * 100;
         $salary = 0;
@@ -190,6 +195,69 @@ class BitrixController extends Controller
                 $previousUpperBound = $upperBound;
             }
         }
+        
+        return [
+            'salary' => $salary,
+            'calculation_details' => $processedRanges
+        ];
+    }
+
+    protected function calculateManagerSalary2($plan, $actualSales, $options) {
+        $percentage = ($actualSales / $plan) * 100;
+        $salary = 0;
+        $processedRanges = [];
+        
+        // Подготовка и сортировка опций
+        $sortedOptions = [];
+        foreach ($options as $key => $value) {
+            if ($key === 100) {
+                $sortedOptions['100+'] = (float)$value / 100;
+            } elseif (strpos($key, '-') !== false) {
+                $sortedOptions[$key] = (float)$value / 100;
+            }
+        }
+        
+        // Сортировка диапазонов по возрастанию
+        uksort($sortedOptions, function($a, $b) {
+            if ($a === '100+') return 1;
+            if ($b === '100+') return -1;
+            
+            $aMin = explode('-', $a)[0];
+            $bMin = explode('-', $b)[0];
+            return $aMin <=> $bMin;
+        });
+        
+        // Определяем какой диапазон применим
+        $applicableRate = 0;
+        foreach ($sortedOptions as $range => $rate) {
+            if ($range === '100+') {
+                if ($percentage > 100) {
+                    $applicableRate = $rate;
+                    $processedRanges[] = "Диапазон: свыше 100% - ставка ".($rate*100)."%";
+                }
+                break;
+            }
+            
+            list($min, $max) = explode('-', $range);
+            if ($percentage >= $min && $percentage <= $max) {
+                $applicableRate = $rate;
+                $processedRanges[] = "Диапазон: $min-$max% - ставка ".($rate*100)."%";
+                break;
+            }
+        }
+        
+        // Если не попали ни в один диапазон (выполнение < минимального)
+        if ($applicableRate === 0 && $percentage > 0) {
+            $processedRanges[] = "Выполнение менее минимального порога - премия не начисляется";
+            return [
+                'salary' => 0,
+                'calculation_details' => $processedRanges
+            ];
+        }
+        
+        // Расчет зарплаты (на всю сумму продаж)
+        $salary = $actualSales * $applicableRate;
+        $processedRanges[] = "Начислено: ".($applicableRate*100)."% от ".number_format($actualSales, 0, '', ' ')." = ".number_format($salary, 0, '', ' ');
         
         return [
             'salary' => $salary,
