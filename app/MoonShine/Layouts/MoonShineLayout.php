@@ -34,6 +34,7 @@ use App\MoonShine\Resources\StaffResource;
 use MoonShine\MenuManager\MenuItem;
 use App\MoonShine\Resources\PositionResource;
 use App\MoonShine\Resources\PlanResource;
+use App\MoonShine\Resources\SettingResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -51,6 +52,7 @@ final class MoonShineLayout extends AppLayout
             MenuItem::make('Сотрудники', StaffResource::class),
             MenuItem::make('Должности', PositionResource::class),
             MenuItem::make('Плановые показатели', PlanResource::class),
+            MenuItem::make('Настройки', SettingResource::class),
         ];
     }
 

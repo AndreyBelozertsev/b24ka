@@ -14,6 +14,7 @@ use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\StaffResource;
 use App\MoonShine\Resources\PositionResource;
 use App\MoonShine\Resources\PlanResource;
+use App\MoonShine\Resources\SettingResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 StaffResource::class,
                 PositionResource::class,
                 PlanResource::class,
+                SettingResource::class,
             ])
             ->pages([
                 ...$config->getPages(),

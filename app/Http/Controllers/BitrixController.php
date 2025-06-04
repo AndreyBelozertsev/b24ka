@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use DateTime;
 use App\Models\Staff;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Bitrix24\SDK\Services\ServiceBuilderFactory;
 use Bitrix24\SDK\Core\Credentials\ApplicationProfile;
@@ -19,12 +20,13 @@ class BitrixController extends Controller
         ]);
         $B24 = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
 
-        //get last and first date
         $monthStart = (new DateTime())->modify('first day of this month')->format('Y-m-d');
         $monthEnd = (new DateTime('last day of this month'))->format('Y-m-d');
-        // $monthStart = (new DateTime())->setDate((int)date('Y'), 4, 1)->format('Y-m-d');
-        // $monthEnd = (new DateTime())->setDate((int)date('Y'), 4, 30)->format('Y-m-d');
 
+        if($date_start = Setting::where('id', 1)->select('start_at')->first()?->start_at){
+            $monthStart = (new DateTime($date_start))->modify('first day of this month')->format('Y-m-d');
+            $monthEnd = (new DateTime($date_start))->modify('last day of this month')->format('Y-m-d');
+        }
 
         //get the users
         $users = [];
