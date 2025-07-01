@@ -21,11 +21,11 @@ class BitrixController extends Controller
         $B24 = ServiceBuilderFactory::createServiceBuilderFromPlacementRequest(Request::createFromGlobals(), $appProfile);
 
         $monthStart = (new DateTime())->modify('first day of this month')->format('Y-m-d');
-        $monthEnd = (new DateTime('last day of this month'))->format('Y-m-d');
+        $monthEnd = (new DateTime('last day of this month'))->setTime(23, 59, 59)->format('Y-m-d');
 
         if($date_start = Setting::where('id', 1)->select('start_at')->first()?->start_at){
             $monthStart = (new DateTime($date_start))->modify('first day of this month')->format('Y-m-d');
-            $monthEnd = (new DateTime($date_start))->modify('last day of this month')->format('Y-m-d');
+            $monthEnd = (new DateTime($date_start))->modify('last day of this month')->setTime(23, 59, 59)->format('Y-m-d');
         }
 
         //get the users
